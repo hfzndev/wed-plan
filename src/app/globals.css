@@ -1,0 +1,96 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Palet hangat. Nilainya sengaja sedikit — batasan ini yang menjaga
+     tampilannya tetap tenang saat modul bertambah. */
+  --color-kertas: #faf7f2;
+  --color-permukaan: #fffdfa;
+  --color-garis: #e6ded2;
+  --color-garis-kuat: #d3c7b6;
+  --color-tinta: #2c2621;
+  --color-tinta-lembut: #7a6f63;
+  --color-tinta-samar: #a99d8e;
+
+  --color-terracotta: #b5654a;
+  --color-terracotta-lembut: #f2e3dc;
+  --color-sage: #7c8b72;
+  --color-sage-lembut: #e6ebe1;
+  --color-bahaya: #b03a2e;
+  --color-bahaya-lembut: #f7e2df;
+
+  --font-serif: var(--font-fraunces), Georgia, 'Times New Roman', serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-kartu: 0.5rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-kertas);
+    color: var(--color-tinta);
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  /* Angka rupiah harus sejajar antar baris supaya kolom terbaca. */
+  .angka {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* iOS memperbesar halaman kalau font input di bawah 16px. */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  ::selection {
+    background-color: var(--color-terracotta-lembut);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .kartu {
+    background-color: var(--color-permukaan);
+    border: 1px solid var(--color-garis);
+    border-radius: var(--radius-kartu);
+  }
+
+  .ruang-nav {
+    /* Ruang untuk bottom nav + home indicator iOS.
+       Tombol Beranda di tengah menonjol ~28px di atas bar, jadi ruangnya harus
+       lebih tinggi daripada bar itu sendiri — kalau tidak, konten terakhir
+       tertimpa lingkaran. */
+    padding-bottom: calc(6.25rem + env(safe-area-inset-bottom));
+  }
+
+  /* Di desktop bottom nav hilang, jadi ruang setinggi itu cuma jadi lubang. */
+  @media (width >= 48rem) {
+    .ruang-nav {
+      padding-bottom: 3rem;
+    }
+  }
+
+  .label-kecil {
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-tinta-samar);
+  }
+}
